@@ -106,10 +106,5 @@ def list_bombs (a_grid):
                 position_of_bombs = []
                 position_of_bombs.append(a_grid.index('*'))
                 
-def l(r,c,b):
-    return b[r][c]
-
-
-
 play_game()
 
