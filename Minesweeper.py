@@ -67,10 +67,6 @@ def print_empty_game (a_empty_grid):
             print(element, end=' | ')
         print("")
 
-
-
-
-
 #create a row of cells
 def create_row(number_of_cells):
     new_row = []
@@ -111,5 +107,30 @@ def position_of_bombs(a_grid):
     for rowInd, rowItem in enumerate(a_grid):
         [pos_bombs.append([rowInd, colInd]) for colInd, colItem in enumerate(rowItem) if colItem == '*']
     return (pos_bombs)
+
+# Define the numbers surrounding the bombs
+def numbers_in_grid(grid):
+    nRow = len(grid)
+    nCol = len(grid[0])
+    createMatrix = []
+    for i in range(nRow):
+        for j in range(nCol):
+            currentState = grid[i][j]
+            neighbourCells = [[i-1, j-1], [i-1, j], [i-1, j+1], [i, j-1], [i,j+1], [i+1, j-1], [i+1, j], [i+1, j+1]]
+            toBeDeleted = []
+            for ind, pair in enumerate(neighbourCells):
+                if pair[0] < 0 or pair[0] > nRow - 1:
+                    toBeDeleted.append(ind)
+                if pair[1] < 0 or pair[1] > nCol -1:
+                    toBeDeleted.append(ind)
+            neighbourCellsToCheck = [i for j, i in enumerate(neighbourCells) if j not in toBeDeleted]
+            neighbourCount = 0
+            for pair in neighbourCellsToCheck:
+                if grid[pair[0]][pair[1]] == '*':
+                    neighbourCount += 1
+            createMatrix.append([i, j, neighbourCount, currentState])
+    return createMatrix
+
+
 play_game()
 
