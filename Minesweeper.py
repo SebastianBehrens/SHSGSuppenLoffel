@@ -80,3 +80,8 @@ def list_bombs (a_grid):
 def l(r,c,b):
     return b[r][c]
 
+<<<<<<< HEAD
+=======
+
+play_game()
+>>>>>>> fb1f8150318efd16b4c4486678daf9ea7f2ab656
