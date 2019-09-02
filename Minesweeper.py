@@ -80,7 +80,7 @@ def position_of_bombs(a_grid):
     return pos_bombs
 
 # Define the numbers surrounding the bombs
-def numbers_in_grid(grid):
+def compute_numbers_in_grid(grid):
     nRow = len(grid)
     nCol = len(grid[0])
     createMatrix = []
@@ -117,9 +117,42 @@ def create_neighbour_count_grid(neighbourCountMatrix):
 
     return neighbourCountGrid
 
+def play_round(display_grid, numbers_in_grid, bomb_grid):
+    print(display_grid)
+    a = input('Where do you want to klick?')
+    i, j = a.split(' ')
+    compute_reveal(numbers_in_grid, display_grid, bomb_grid, int(i), int(j))
 
 
 #Code to start the game by user input
+def look_in_neighbours(i, j):
+    neighbourCells = [[i-1, j-1], [i-1, j], [i-1, j+1], [i, j-1], [i,j+1], [i+1, j-1], [i+1, j], [i+1, j+1]]
+    return neighbourCells
+
+def compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j ):
+    if bomb_grid[i][j] == '*':
+        print('You lost.')
+        # exit() to break the course of the game
+    else:
+        if numbers_in_grid[i][j] == 0:
+            for i in look_in_neighbours(i, j):
+                if numbers_in_grid[i][j] == '0':
+                    compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j)
+        else:
+            display_grid[i][j] = numbers_in_grid[i][j]
+        print(displayGrid)
+
+
+
+
+
+
+
+
+
+
+
+
 def play_game():
     print ('Hello to Minecraft by the Suppenloffels.')
     play_game = input('When you are ready to start the game type "P"')
@@ -139,8 +172,11 @@ def play_game():
         empty_grid = create_empty_grid(size)
         print_empty_game(empty_grid)
         print(position_of_bombs(ready_grid))
-        numbers_in_grid(ready_grid)
-        print_game(create_neighbour_count_grid(numbers_in_grid(ready_grid)))
+        compute_numbers_in_grid(ready_grid)
+
+        play_round(empty_grid,
+        create_neighbour_count_grid(compute_numbers_in_grid(ready_grid)),
+        ready_grid)
 
 
     else:
@@ -150,12 +186,4 @@ def play_game():
 
 
 
-#
-# def play_round(grid, i, j):
-#     if grid[i][j] == '*'
-#     print('You lost.')
-#     # exit() to break the course of the game
-#     else:
-#
-#
 play_game()
