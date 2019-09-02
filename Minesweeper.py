@@ -112,6 +112,7 @@ def list_bombs (a_grid):
             if colums == '*':
                 position_of_bombs = []
                 position_of_bombs.append(a_grid.index('*'))
-                
+
+
 play_game()
 
