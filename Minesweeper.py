@@ -37,6 +37,7 @@ def play_game():
         print_game(ready_grid)
         empty_grid = create_empty_grid(size)
         print_empty_game(empty_grid)
+        position_of_bombs(ready_grid)
         
         
     else:
@@ -104,14 +105,11 @@ def print_game (a_grid):
         print("")
 
 
-# He can't find * in the list ( don't know why)
 # Define the list of bombs
-def list_bombs (a_grid):
-    for rows in range(len(a_grid)-1):
-        for colums in rows:
-            if colums == '*':
-                position_of_bombs = []
-                position_of_bombs.append(a_grid.index('*'))
-                
+def position_of_bombs(a_grid):
+    pos_bombs = []
+    for rowInd, rowItem in enumerate(a_grid):
+        [pos_bombs.append([rowInd, colInd]) for colInd, colItem in enumerate(rowItem) if colItem == '*']
+    return (pos_bombs)
 play_game()
 
