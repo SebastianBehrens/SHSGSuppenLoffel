@@ -103,7 +103,7 @@ def numbers_in_grid(grid):
     return createMatrix
 
 
-                
+                 
 
 
 def create_neighbour_count_grid(neighbourCountMatrix):
