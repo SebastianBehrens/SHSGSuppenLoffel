@@ -17,35 +17,6 @@
 '''
 
 import random
-
-#Code to start the game by user input
-def play_game():
-    print ('Hello to Minecraft by the Suppenloffels.')
-    play_game = input('When you are ready to start the game type "P"')
-    if play_game == 'P':
-        print("Perfect, let's start playing!")
-        size = int(input('How large do you prefer your field to be?'))
-        difficulty = str(input('At which level of difficulty do you want to play (l=low,m=medium,h=high)'))
-        if difficulty == "l":
-            severity = 0.2
-        if difficulty == "m":
-            severity = 0.4
-        if difficulty == "h":
-            severity = 0.7
-        empty_grid = create_grid(size)
-        ready_grid = add_mines(empty_grid,int(severity*size*size))
-        print_game(ready_grid)
-        empty_grid = create_empty_grid(size)
-        print_empty_game(empty_grid)
-        position_of_bombs(ready_grid)
-        
-        
-    else:
-        print ('Your input is invalid. Please type "P" to start the game.')
-        play_game()
-        return
-    
-
 #create a row of empty cells
 def create_empty_row(number_of_cells):
     new_empty_row = []
@@ -106,7 +77,7 @@ def position_of_bombs(a_grid):
     pos_bombs = []
     for rowInd, rowItem in enumerate(a_grid):
         [pos_bombs.append([rowInd, colInd]) for colInd, colItem in enumerate(rowItem) if colItem == '*']
-    return (pos_bombs)
+    return pos_bombs
 
 # Define the numbers surrounding the bombs
 def numbers_in_grid(grid):
@@ -132,5 +103,52 @@ def numbers_in_grid(grid):
     return createMatrix
 
 
-play_game()
+                
 
+
+def create_neighbour_count_grid(neighbourCountMatrix):
+    neighbourCountGrid = create_empty_grid(int(len(neighbourCountMatrix)**.5))
+    for neighbourquadruplet in neighbourCountMatrix:
+        indRow = neighbourquadruplet[0]
+        indCol = neighbourquadruplet[1]
+        neighbours = neighbourquadruplet[2]
+        
+        neighbourCountGrid[indRow][indCol] = neighbours
+        
+    return neighbourCountGrid
+
+
+
+#Code to start the game by user input
+def play_game():
+    print ('Hello to Minecraft by the Suppenloffels.')
+    play_game = input('When you are ready to start the game type "P"')
+    if play_game == 'P':
+        print("Perfect, let's start playing!")
+        size = int(input('How large do you prefer your field to be?'))
+        difficulty = str(input('At which level of difficulty do you want to play (l=low,m=medium,h=high)'))
+        if difficulty == "l":
+            severity = 0.2
+        if difficulty == "m":
+            severity = 0.4
+        if difficulty == "h":
+            severity = 0.7
+        empty_grid = create_grid(size)
+        ready_grid = add_mines(empty_grid,int(severity*size*size))
+        print_game(ready_grid)
+        empty_grid = create_empty_grid(size)
+        print_empty_game(empty_grid)
+        print(position_of_bombs(ready_grid))
+        numbers_in_grid(ready_grid)
+        print_game(create_neighbour_count_grid(numbers_in_grid(ready_grid)))
+        
+        
+    else:
+        print ('Your input is invalid. Please type "P" to start the game.')
+        play_game()
+        return
+    
+
+
+
+play_game()
