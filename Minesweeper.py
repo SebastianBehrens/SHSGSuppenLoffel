@@ -68,17 +68,5 @@ def print_game (a_grid):
             print(element, end=' | ')
         print("")
 
-# He can't find * in the list ( don't know why)
-# Define the list of bombs
-def list_bombs (a_grid):
-    for rows in range(len(a_grid)-1):
-        for colums in rows:
-            if colums == '*':
-                position_of_bombs = []
-                position_of_bombs.append(a_grid.index('*'))
-                
-def l(r,c,b):
-    return b[r][c]
-
 
 play_game()
