@@ -103,7 +103,7 @@ def numbers_in_grid(grid):
     return createMatrix
 
 
-                 
+
 
 
 def create_neighbour_count_grid(neighbourCountMatrix):
@@ -112,9 +112,9 @@ def create_neighbour_count_grid(neighbourCountMatrix):
         indRow = neighbourquadruplet[0]
         indCol = neighbourquadruplet[1]
         neighbours = neighbourquadruplet[2]
-        
+
         neighbourCountGrid[indRow][indCol] = neighbours
-        
+
     return neighbourCountGrid
 
 
@@ -141,14 +141,21 @@ def play_game():
         print(position_of_bombs(ready_grid))
         numbers_in_grid(ready_grid)
         print_game(create_neighbour_count_grid(numbers_in_grid(ready_grid)))
-        
-        
+
+
     else:
         print ('Your input is invalid. Please type "P" to start the game.')
         play_game()
         return
-    
 
 
 
+#
+# def play_round(grid, i, j):
+#     if grid[i][j] == '*'
+#     print('You lost.')
+#     # exit() to break the course of the game
+#     else:
+#
+#
 play_game()
