@@ -1,8 +1,8 @@
-def play_game():
+def create_empty_game():
     print ('Hello to Minecraft by the Suppenloffels.')
     play_game = input('When you are ready to start the game type "P"')
     if play_game == 'P':
-        print("Perfect, let's start playing!")
+
         empty_grid = create_empty_grid(int(input('How large do you prefer your field to be?')))
 
         print_empty_game(empty_grid)
@@ -32,5 +32,5 @@ def print_empty_game (a_empty_grid):
             print(element, end=' | ')
         print("")
 
-play_game()
+create_empty_game()
 
