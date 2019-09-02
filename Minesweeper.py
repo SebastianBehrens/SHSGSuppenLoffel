@@ -27,7 +27,6 @@ def play_game():
         empty_grid = create_grid(int(input('How large do you prefer your field to be?')))
         ready_grid = add_mines(empty_grid,int(input('How many bombs do you want to place in your field?')))
         print_game(ready_grid)
-        print(list_bombs(ready_grid))
     else:
         print ('Your input is invalid. Please type "P" to start the game.')
         play_game()
