@@ -136,7 +136,7 @@ def compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j ):
     else:
         if numbers_in_grid[i][j] == 0:
             for i in look_in_neighbours(i, j):
-                if numbers_in_grid[i][j] == 0:
+                if numbers_in_grid[i] == 0:
                     compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j)
         else:
             display_grid[i][j] = numbers_in_grid[i][j]
