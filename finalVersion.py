@@ -171,18 +171,14 @@ def playRound(display_grid, bomb_grid, number_grid):
     else:
         if number_grid[i][j] == 0:
             # print('The clicked field would trigger the expansion reveal')
-            print_game(number_grid)
             reveal(i, j, number_grid, display_grid)
             # for reveal_pair in revealed:
             #     display_grid[reveal_pair[0]][reveal_pair[1]] = number_grid[reveal_pair[0]][reveal_pair[1]]
-            print_game(display_grid)
+            
 
         else:
             display_grid[i][j] = number_grid[i][j]
             # print_game(display_grid)
-
-
-
 
 
 
