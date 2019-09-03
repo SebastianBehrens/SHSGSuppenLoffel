@@ -1,7 +1,16 @@
 import random
 #create a row of empty cells
 def print_game (a_grid):
+    header_indices = ['   ', ] + list(range(len(a_grid)))
+    row_indices = list(range(len(a_grid)))
+    for head_index in header_indices:
+        print(head_index, end = ' | ')
+    print('\n')
+    row_count = 0
     for some_list in a_grid:
+
+        print(row_indices[row_count], end = ' |   ')
+        row_count += 1
         for element in some_list:
             print(element, end=' | ')
         print("")
@@ -95,11 +104,11 @@ def startGame():
         size = int(input('How large do you prefer your field to be?'))
         difficulty = str(input('At which level of difficulty do you want to play (l=low,m=medium,h=high)'))
         if difficulty == "l":
-            severity = 0.2
+            severity = 0.15
         if difficulty == "m":
-            severity = 0.4
+            severity = 0.25
         if difficulty == "h":
-            severity = 0.7
+            severity = 0.4
         display_grid = create_empty_grid(size)
         bomb_grid = add_mines(create_empty_grid(size), int(severity*(size**2)))
         numbers_grid = compute_numbers_grid(bomb_grid)
@@ -107,15 +116,18 @@ def startGame():
 
     return display_grid, bomb_grid, numbers_grid
 
-
+opened_up_zeros = []
 def reveal(i, j, number_grid, display_grid):
     nRow = len(number_grid)
     nCol = len(number_grid[1])
+
     neighbourCells = [[i-1, j-1], [i-1, j], [i-1, j+1], [i, j], [i, j-1], [i,j+1], [i+1, j-1], [i+1, j], [i+1, j+1]]
     toBeDeleted = []
     for ind, pair in enumerate(neighbourCells):
         if pair[0] < 0 or pair[0] > nRow - 1 or pair[1] < 0 or pair[1] > nCol -1:
             toBeDeleted.append(ind)
+        else:
+            continue
         # if pair[1] < 0 or pair[1] > nCol -1:
         #     toBeDeleted.append(ind)
 
@@ -123,50 +135,61 @@ def reveal(i, j, number_grid, display_grid):
     to_be_revealed = [i for j, i in enumerate(neighbourCells) if j not in toBeDeleted]
     for reveal_pair in to_be_revealed:
         display_grid[reveal_pair[0]][reveal_pair[1]] = number_grid[reveal_pair[0]][reveal_pair[1]]
-        if number_grid[reveal_pair[0]][reveal_pair[1]] == 0:
-            reveal(reveal_pair[0], reveal_pair[1], number_grid, display_grid)
+        if display_grid[reveal_pair[0]][reveal_pair[1]] == 0:
+            if reveal_pair in opened_up_zeros:
+                continue
+            else:
+                opened_up_zeros.append(reveal_pair)
+
+                ### the recursive problem
+                reveal(reveal_pair[0], reveal_pair[1], number_grid, display_grid)
 
 
 
 
 
 def playRound(display_grid, bomb_grid, number_grid):
+
     print_game(display_grid)
-    print('next bomb grid\n_____')
-    print_game(bomb_grid)
-    # print('next bomb \n_____')
-    # print_game(number_grid)
-    # print('next numb \n_____')
-    # exit()
-    a = input('Where do you want to klick?')
-    i, j = a.split(' ')
+
+    klick_input = input('Where do you want to klick?')
+    i, j = klick_input.strip().split(' ')
+    # i, j = a.split(' ')
     i = int(i)
     j = int(j)
 
     if bomb_grid[i][j] == '*':
         print('You lost. Game Over.')
-        # exit()  to be determined (tested with and without)
+        exit()  # to be determined (tested with and without)
 
     else:
         if number_grid[i][j] == 0:
             # print('The clicked field would trigger the expansion reveal')
-            print_game(number_grid)
             reveal(i, j, number_grid, display_grid)
             # for reveal_pair in revealed:
             #     display_grid[reveal_pair[0]][reveal_pair[1]] = number_grid[reveal_pair[0]][reveal_pair[1]]
-            print_game(display_grid)
+
 
         else:
             display_grid[i][j] = number_grid[i][j]
-            print_game(display_grid)
-
-
-
+            # print_game(display_grid)
 
 
 
         # display_grid = # overwritten grid to display (with reveaal)
 
-my_disp, my_bomb, my_numb = startGame()
+# my_disp, my_bomb, my_numb = startGame()
+#
+# playRound(my_disp, my_bomb, my_numb)
 
-playRound(my_disp, my_bomb, my_numb)
+def playGame(round):
+    if round == 1:
+        round += 1
+        my_disp, my_bomb, my_numb = startGame()
+        playRound(my_disp, my_bomb, my_numb)
+
+    while round > 1:
+        playRound(my_disp, my_bomb, my_numb)
+
+
+playGame(1)
