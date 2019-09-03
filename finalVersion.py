@@ -149,7 +149,7 @@ def reveal(i, j, number_grid, display_grid):
 
 
 def playRound(display_grid, bomb_grid, number_grid):
-    print_game(number_grid)
+
     print_game(display_grid)
     # print('next bomb grid\n_____')
     # print_game(bomb_grid)
