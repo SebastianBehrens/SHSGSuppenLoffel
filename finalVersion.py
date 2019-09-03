@@ -108,24 +108,24 @@ def startGame():
     return display_grid, bomb_grid, numbers_grid
 
 
-def reveal(i, j, n, number_grid):
-    nRow = n
-    nCol = n
+def reveal(i, j, number_grid):
+    nRow = len(number_grid)
+    nCol = len(number_grid[1])
     neighbourCells = [[i-1, j-1], [i-1, j], [i-1, j+1], [i, j], [i, j-1], [i,j+1], [i+1, j-1], [i+1, j], [i+1, j+1]]
     toBeDeleted = []
     for ind, pair in enumerate(neighbourCells):
-        if pair[0] < 0 or pair[0] > nRow - 1:
+        if pair[0] < 0 or pair[0] > nRow - 1 or pair[1] < 0 or pair[1] > nCol -1:
             toBeDeleted.append(ind)
-        if pair[1] < 0 or pair[1] > nCol -1:
-            toBeDeleted.append(ind)
+        # if pair[1] < 0 or pair[1] > nCol -1:
+        #     toBeDeleted.append(ind)
 
 
     to_be_revealed = [i for j, i in enumerate(neighbourCells) if j not in toBeDeleted]
-
-    for reveal_pair in to_be_revealed:
-        display_grid[reveal_pair[0]][reveal_pair[1]] = number_grid[reveal_pair[0]][reveal_pair[1]]
-        if numbers_grid[reveal_pair[0]][reveal_pair[1]] == 0:
-            reveal(reveal_pair[0], reveal_pair[1], number_grid)
+    return to_be_revealed
+    # for reveal_pair in to_be_revealed:
+    #     display_grid[reveal_pair[0]][reveal_pair[1]] = number_grid[reveal_pair[0]][reveal_pair[1]]
+    #     if numbers_grid[reveal_pair[0]][reveal_pair[1]] == 0:
+    #         reveal(reveal_pair[0], reveal_pair[1], number_grid)
 
 
 
@@ -152,7 +152,9 @@ def playRound(display_grid, bomb_grid, number_grid):
         if number_grid[i][j] == 0:
             # print('The clicked field would trigger the expansion reveal')
             print_game(number_grid)
-            reveal(i, j, number_grid)
+            revealed = reveal(i, j, number_grid)
+            for reveal_pair in revealed:
+                display_grid[reveal_pair[0]][reveal_pair[1]] = number_grid[reveal_pair[0]][reveal_pair[1]]
             print_game(display_grid)
 
         else:
