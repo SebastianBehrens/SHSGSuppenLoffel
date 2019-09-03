@@ -132,8 +132,8 @@ def reveal(i, j, number_grid, display_grid):
 
 def playRound(display_grid, bomb_grid, number_grid):
     print_game(display_grid)
-    print('next bomb grid\n_____')
-    print_game(bomb_grid)
+    # print('next bomb grid\n_____')
+    # print_game(bomb_grid)
     # print('next bomb \n_____')
     # print_game(number_grid)
     # print('next numb \n_____')
@@ -145,7 +145,7 @@ def playRound(display_grid, bomb_grid, number_grid):
 
     if bomb_grid[i][j] == '*':
         print('You lost. Game Over.')
-        # exit()  to be determined (tested with and without)
+        exit()  # to be determined (tested with and without)
 
     else:
         if number_grid[i][j] == 0:
@@ -158,7 +158,7 @@ def playRound(display_grid, bomb_grid, number_grid):
 
         else:
             display_grid[i][j] = number_grid[i][j]
-            print_game(display_grid)
+            # print_game(display_grid)
 
 
 
@@ -167,6 +167,18 @@ def playRound(display_grid, bomb_grid, number_grid):
 
         # display_grid = # overwritten grid to display (with reveaal)
 
-my_disp, my_bomb, my_numb = startGame()
+# my_disp, my_bomb, my_numb = startGame()
+#
+# playRound(my_disp, my_bomb, my_numb)
 
-playRound(my_disp, my_bomb, my_numb)
+def playGame(round):
+    if round == 1:
+        round += 1
+        my_disp, my_bomb, my_numb = startGame()
+        playRound(my_disp, my_bomb, my_numb)
+
+    while round > 1:
+        playRound(my_disp, my_bomb, my_numb)
+
+
+playGame(1)
