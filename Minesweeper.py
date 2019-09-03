@@ -142,7 +142,7 @@ def look_in_neighbours(i, j):
 
 def compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j ):
     if bomb_grid[i][j] == '*':
-        print('You lost.')
+        print_game('You lost.')
         # exit() to break the course of the game
     else:
         if numbers_in_grid[i][j] == 0:
@@ -151,7 +151,7 @@ def compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j ):
                     compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j)
         else:
             display_grid[i][j] = numbers_in_grid[i][j]
-        print(display_grid)
+        print_game(display_grid)
 
 
 
