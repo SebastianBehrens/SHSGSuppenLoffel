@@ -2,7 +2,8 @@
 Steps for creating Minesweeper:
 
 1. Create playground
-1.1 Create a grid (user input) !!!DONE!!!
+1.1 Create a grid (user input)
+
 1.2 Define number of bombs (user input !!!DONE!!!// maybe: with limits)
 1.3 Randomly distrubute bombs over the grid!!!DONE!!!
 1.4 Create a list with the positions of the bombs [row][column] !!!DONE!!!
@@ -12,7 +13,7 @@ Steps for creating Minesweeper:
 
 2. Rules
 2.1 Game ends as soon as you hit a mine
-2.2 Game proceeds if you hit a field with a number > 0 
+2.2 Game proceeds if you hit a field with a number > 0
 2.3 If you hit a 0 all 8 sourrounding fields are revealed
 
 3. Gameplay
@@ -22,4 +23,39 @@ Steps for creating Minesweeper:
 3.4 Scorekeeper
 3.5 Give the user 3 options (Easy, Middle and Hard) !!!DONE!!!
 
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# new:
+'''
+empty grid
+add bombs
+
+display empty
+get klick
+computed
+display new
 '''
