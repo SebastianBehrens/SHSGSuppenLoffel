@@ -32,11 +32,11 @@ def create_empty_grid(a_size):
         a_empty_grid.append(new_empty_row)
     return a_empty_grid
 
-# def print_empty_game (a_empty_grid):
-#     for some_list in a_empty_grid:
-#         for element in some_list:
-#             print(element, end=' | ')
-#         print("")
+def print_empty_game (a_empty_grid):
+    for some_list in a_empty_grid:
+        for element in some_list:
+            print(element, end=' | ')
+        print("")
 
 #create a row of cells
 def create_row(number_of_cells):
@@ -57,11 +57,10 @@ def create_grid(a_size):
 # maybe define it, so that it checks if there is already a bomb in the field (not done yet)
 def add_mines(a_grid,max_number_of_mines):
      count = 0
-     if count < max_number_of_mines:
+     max_count = max_number_of_mines
+     if count < max_count:
         for i in range(max_number_of_mines):
-            bomb_i_ind = random.randint(0,len(a_grid[0])-1)
-            bomb_j_ind = random.randint(0,len(a_grid[0])-1)
-            a_grid[bomb_i_ind][bomb_j_ind] = '*'
+            a_grid[random.randint(0,len(a_grid[0])-1)][random.randint(0,len(a_grid[0])-1)] = '*'
             count +=1
         return a_grid
 
@@ -74,17 +73,6 @@ def print_game (a_grid):
 
 
 # Define the list of bombs
-
-# def list_bombs (a_grid):
-#     for rows in range(len(a_grid)-1):
-#         for colums in rows:
-#             if colums == '*':
-#                 position_of_bombs = []
-#                 position_of_bombs.append(a_grid.index('*'))
-
-
-# play_game()
-
 def position_of_bombs(a_grid):
     pos_bombs = []
     for rowInd, rowItem in enumerate(a_grid):
@@ -130,7 +118,7 @@ def create_neighbour_count_grid(neighbourCountMatrix):
     return neighbourCountGrid
 
 def play_round(display_grid, numbers_in_grid, bomb_grid):
-    print(display_grid)
+    print_game(display_grid)
     a = input('Where do you want to klick?')
     i, j = a.split(' ')
     compute_reveal(numbers_in_grid, display_grid, bomb_grid, int(i), int(j))
@@ -143,7 +131,7 @@ def look_in_neighbours(i, j):
 
 def compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j ):
     if bomb_grid[i][j] == '*':
-        print_game('You lost.')
+        print('You lost.')
         # exit() to break the course of the game
     else:
         if numbers_in_grid[i][j] == 0:
@@ -164,11 +152,10 @@ def compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j ):
 
 
 
-
-
 def play_game():
     print ('Hello to Minecraft by the Suppenloffels.')
-    if True:
+    play_game = input('When you are ready to start the game type "P"')
+    if play_game == 'P':
         print("Perfect, let's start playing!")
         size = int(input('How large do you prefer your field to be?'))
         difficulty = str(input('At which level of difficulty do you want to play (l=low,m=medium,h=high)'))
@@ -180,10 +167,10 @@ def play_game():
             severity = 0.7
         empty_grid = create_grid(size)
         ready_grid = add_mines(empty_grid,int(severity*size*size))
-        print_game(ready_grid) # to be deleted for user
+        print_game(ready_grid)
         empty_grid = create_empty_grid(size)
-        print_game(empty_grid)
-        print(position_of_bombs(ready_grid)) # to be deleted for user
+        print_empty_game(empty_grid)
+        print(position_of_bombs(ready_grid))
         compute_numbers_in_grid(ready_grid)
 
         play_round(empty_grid,
