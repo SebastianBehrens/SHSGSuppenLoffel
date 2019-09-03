@@ -1,11 +1,20 @@
 import random
 #create a row of empty cells
 def print_game (a_grid):
+    header_indices = ['   ', ] + list(range(len(a_grid)))
+    row_indices = list(range(len(a_grid)))
+    for head_index in header_indices:
+        print(head_index, end = ' | ')
+    print('\n')
+    row_count = 0
     for some_list in a_grid:
+
+        print(row_indices[row_count], end = ' |   ')
+        row_count += 1
         for element in some_list:
             print(element, end=' | ')
         print("")
-
+        
 def create_empty_row(number_of_cells):
     new_empty_row = []
     for i in range(number_of_cells):
@@ -123,8 +132,10 @@ def reveal(i, j, number_grid, display_grid):
     to_be_revealed = [i for j, i in enumerate(neighbourCells) if j not in toBeDeleted]
     for reveal_pair in to_be_revealed:
         display_grid[reveal_pair[0]][reveal_pair[1]] = number_grid[reveal_pair[0]][reveal_pair[1]]
-        if number_grid[reveal_pair[0]][reveal_pair[1]] == 0:
-            reveal(reveal_pair[0], reveal_pair[1], number_grid, display_grid)
+        # if number_grid[reveal_pair[0]][reveal_pair[1]] == 0:
+
+            ### the recursive problem
+            # reveal(reveal_pair[0], reveal_pair[1], number_grid, display_grid)
 
 
 
