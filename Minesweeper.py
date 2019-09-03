@@ -32,11 +32,11 @@ def create_empty_grid(a_size):
         a_empty_grid.append(new_empty_row)
     return a_empty_grid
 
-def print_empty_game (a_empty_grid):
-    for some_list in a_empty_grid:
-        for element in some_list:
-            print(element, end=' | ')
-        print("")
+# def print_empty_game (a_empty_grid):
+#     for some_list in a_empty_grid:
+#         for element in some_list:
+#             print(element, end=' | ')
+#         print("")
 
 #create a row of cells
 def create_row(number_of_cells):
@@ -57,10 +57,11 @@ def create_grid(a_size):
 # maybe define it, so that it checks if there is already a bomb in the field (not done yet)
 def add_mines(a_grid,max_number_of_mines):
      count = 0
-     max_count = max_number_of_mines
-     if count < max_count:
+     if count < max_number_of_mines:
         for i in range(max_number_of_mines):
-            a_grid[random.randint(0,len(a_grid[0])-1)][random.randint(0,len(a_grid[0])-1)] = '*'
+            bomb_i_ind = random.randint(0,len(a_grid[0])-1)
+            bomb_j_ind = random.randint(0,len(a_grid[0])-1)
+            a_grid[bomb_i_ind][bomb_j_ind] = '*'
             count +=1
         return a_grid
 
@@ -136,7 +137,7 @@ def compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j ):
     else:
         if numbers_in_grid[i][j] == 0:
             for i in look_in_neighbours(i, j):
-                if numbers_in_grid[i] == 0:
+                if numbers_in_grid[i][j] == 0:
                     compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j)
         else:
             display_grid[i][j] = numbers_in_grid[i][j]
@@ -155,8 +156,7 @@ def compute_reveal(numbers_in_grid, display_grid, bomb_grid, i, j ):
 
 def play_game():
     print ('Hello to Minecraft by the Suppenloffels.')
-    play_game = input('When you are ready to start the game type "P"')
-    if play_game == 'P':
+    if True:
         print("Perfect, let's start playing!")
         size = int(input('How large do you prefer your field to be?'))
         difficulty = str(input('At which level of difficulty do you want to play (l=low,m=medium,h=high)'))
@@ -168,10 +168,10 @@ def play_game():
             severity = 0.7
         empty_grid = create_grid(size)
         ready_grid = add_mines(empty_grid,int(severity*size*size))
-        print_game(ready_grid)
+        print_game(ready_grid) # to be deleted for user
         empty_grid = create_empty_grid(size)
-        print_empty_game(empty_grid)
-        print(position_of_bombs(ready_grid))
+        print_game(empty_grid)
+        print(position_of_bombs(ready_grid)) # to be deleted for user
         compute_numbers_in_grid(ready_grid)
 
         play_round(empty_grid,
