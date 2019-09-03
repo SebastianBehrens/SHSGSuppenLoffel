@@ -8,12 +8,17 @@ Steps for creating Minesweeper:
 1.3 Randomly distrubute bombs over the grid!!!DONE!!!
 1.4 Create a list with the positions of the bombs [row][column] !!!DONE!!!
 1.5 Define a funciton which adds 1 to every field next to a bomb (use list from 1.4) if there is no other bomb
-        --> This forms the solution_grid
+        --> This forms the solution_grid !!!DONE!!!
 1.6 Create an "empty_grid" which is available to the user with the same dimnesions (using '-')!!!DONE!!!
 
 2. Rules
+<<<<<<< HEAD
 2.1 Game ends as soon as you hit a mine
 2.2 Game proceeds if you hit a field with a number > 0
+=======
+2.1 Game ends as soon as you hit a mine !!!DDONE!!!
+2.2 Game proceeds if you hit a field with a number > 0 
+>>>>>>> 27e70cde63ed0fe2ec6247d338d92199984329ca
 2.3 If you hit a 0 all 8 sourrounding fields are revealed
 
 3. Gameplay
