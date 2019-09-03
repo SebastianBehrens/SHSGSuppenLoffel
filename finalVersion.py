@@ -104,11 +104,11 @@ def startGame():
         size = int(input('How large do you prefer your field to be?'))
         difficulty = str(input('At which level of difficulty do you want to play (l=low,m=medium,h=high)'))
         if difficulty == "l":
-            severity = 0.2
+            severity = 0.15
         if difficulty == "m":
-            severity = 0.4
+            severity = 0.25
         if difficulty == "h":
-            severity = 0.7
+            severity = 0.4
         display_grid = create_empty_grid(size)
         bomb_grid = add_mines(create_empty_grid(size), int(severity*(size**2)))
         numbers_grid = compute_numbers_grid(bomb_grid)
@@ -151,12 +151,6 @@ def reveal(i, j, number_grid, display_grid):
 def playRound(display_grid, bomb_grid, number_grid):
 
     print_game(display_grid)
-    # print('next bomb grid\n_____')
-    # print_game(bomb_grid)
-    # print('next bomb \n_____')
-    # print_game(number_grid)
-    # print('next numb \n_____')
-    # exit()
 
     klick_input = input('Where do you want to klick?')
     i, j = klick_input.strip().split(' ')
@@ -174,7 +168,7 @@ def playRound(display_grid, bomb_grid, number_grid):
             reveal(i, j, number_grid, display_grid)
             # for reveal_pair in revealed:
             #     display_grid[reveal_pair[0]][reveal_pair[1]] = number_grid[reveal_pair[0]][reveal_pair[1]]
-            
+
 
         else:
             display_grid[i][j] = number_grid[i][j]
