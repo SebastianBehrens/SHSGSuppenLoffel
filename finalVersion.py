@@ -14,7 +14,7 @@ def print_game (a_grid):
         for element in some_list:
             print(element, end=' | ')
         print("")
-        
+
 def create_empty_row(number_of_cells):
     new_empty_row = []
     for i in range(number_of_cells):
@@ -116,15 +116,18 @@ def startGame():
 
     return display_grid, bomb_grid, numbers_grid
 
-
+opened_up_zeros = []
 def reveal(i, j, number_grid, display_grid):
     nRow = len(number_grid)
     nCol = len(number_grid[1])
+
     neighbourCells = [[i-1, j-1], [i-1, j], [i-1, j+1], [i, j], [i, j-1], [i,j+1], [i+1, j-1], [i+1, j], [i+1, j+1]]
     toBeDeleted = []
     for ind, pair in enumerate(neighbourCells):
         if pair[0] < 0 or pair[0] > nRow - 1 or pair[1] < 0 or pair[1] > nCol -1:
             toBeDeleted.append(ind)
+        else:
+            continue
         # if pair[1] < 0 or pair[1] > nCol -1:
         #     toBeDeleted.append(ind)
 
@@ -132,16 +135,21 @@ def reveal(i, j, number_grid, display_grid):
     to_be_revealed = [i for j, i in enumerate(neighbourCells) if j not in toBeDeleted]
     for reveal_pair in to_be_revealed:
         display_grid[reveal_pair[0]][reveal_pair[1]] = number_grid[reveal_pair[0]][reveal_pair[1]]
-        # if number_grid[reveal_pair[0]][reveal_pair[1]] == 0:
+        if display_grid[reveal_pair[0]][reveal_pair[1]] == 0:
+            if reveal_pair in opened_up_zeros:
+                continue
+            else:
+                opened_up_zeros.append(reveal_pair)
 
-            ### the recursive problem
-            # reveal(reveal_pair[0], reveal_pair[1], number_grid, display_grid)
+                ### the recursive problem
+                reveal(reveal_pair[0], reveal_pair[1], number_grid, display_grid)
 
 
 
 
 
 def playRound(display_grid, bomb_grid, number_grid):
+    print_game(number_grid)
     print_game(display_grid)
     # print('next bomb grid\n_____')
     # print_game(bomb_grid)
@@ -149,8 +157,10 @@ def playRound(display_grid, bomb_grid, number_grid):
     # print_game(number_grid)
     # print('next numb \n_____')
     # exit()
-    a = input('Where do you want to klick?')
-    i, j = a.split(' ')
+
+    klick_input = input('Where do you want to klick?')
+    i, j = klick_input.strip().split(' ')
+    # i, j = a.split(' ')
     i = int(i)
     j = int(j)
 
