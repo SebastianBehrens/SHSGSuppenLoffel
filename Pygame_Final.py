@@ -6,6 +6,7 @@ import random
 #size of the game displayed (pixel), as it will be square we only need an x value
 auflösung = 800
 # Sets the beginning Values of the Game, Size of the Game and amount of Mines
+global raster, abstand, anzMinen
 raster = 10 #int(input("Please enter the size of your Game: "))
 abstand = auflösung // raster
 anzMinen = 10 #int(input("Please enter the number of mines: "))
@@ -32,6 +33,7 @@ cell_mine_cross = pygame.transform.scale(pygame.image.load(os.path.join("Mineswe
 game_over = pygame.transform.scale(pygame.image.load(os.path.join("Minesweeper Graphics","GameOver.png")), (900,900))
 you_win = pygame.transform.scale(pygame.image.load(os.path.join("Minesweeper Graphics","YouWin.png")), (592,200))
 summerschool = pygame.transform.scale(pygame.image.load(os.path.join("Minesweeper Graphics","summerschool.png")), (600,115))
+bombe = pygame.image.load(os.path.join("Minesweeper Graphics","Bombe.png"))
 cell_selected = []
 for n in range(9):
     cell_selected.append(pygame.transform.scale(pygame.image.load(os.path.join("Minesweeper Graphics", f"{n}.png")), (abstand,abstand))) 
@@ -86,7 +88,7 @@ def floodFill(zeile, spalte):
 
 # defining function for text objects
 def text_objects(text, font):
-    textSurface = font.render(text, True, black)
+    textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
 
 # defining functions for buttons which can be used
@@ -106,19 +108,24 @@ def button(msg,x,y,w,h,color,activated_color, action=None):
     textSurf, textRect = text_objects(msg, smallText)
     textRect.center = (((x+(w/2)),(y+(h/2))))
     screen.blit(textSurf, textRect)
-
+    
 #the game intro is the introduction to the game
 #it makes a screen appear where you can decide to start the game
 #it also gives the game a title and can display logos and graphics
 def game_intro():
+
     intro = True
+    pygame.mixer.music.load('intro_music.mp3')
+    pygame.mixer.music.play(0)
     while intro:
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        screen.fill(white)
+        screen.fill(black)
+
+        screen.blit(bombe, (300,-50))
         screen.blit(summerschool, (100,130))
         largeText = pygame.font.Font('freesansbold.ttf', 100)
         TextSurf, TextRect = text_objects("MINESWEEPER", largeText)
@@ -131,8 +138,7 @@ def game_intro():
 
 # game function
 def game_loop():
-    global anzMinen
-    global raster
+    global anzMinen, raster
     #Creating the grid for the game
     for n in range(raster*raster):
         matrix.append(Zelle(n // raster, n % raster))
